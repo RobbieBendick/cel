@@ -1,26 +1,6 @@
 import { Box, Container, Typography } from '@mui/material';
 import { ImageGallery } from '../components/ImageGallery';
-
-const photographyImages = [
-  'carolina-wren.png',
-  'entodon.png',
-  'fire-and-ice.png',
-  'gorilla-1.png',
-  'gorilla-2.png',
-  'great-tailed-grackle.png',
-  'great-white-pelican.png',
-  'grey-crowned-crane.png',
-  'hen-of-the-wood.png',
-  'kitty.png',
-  'misty-land.png',
-  'mossy-log.png',
-  'northern-mockingbird.png',
-  'oddity.png',
-  'pink-flowers.png',
-  'snake-1.png',
-  'sunset.png',
-  'wary.png',
-].map(name => `/photography/${name}`);
+import { photographyImages } from '../data/photographyImages';
 
 export function Photography() {
   return (

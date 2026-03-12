@@ -73,6 +73,7 @@ export function Home() {
                 letterSpacing: '-0.04em',
                 fontSize: { xs: '2.6rem', md: '3.5rem' },
                 lineHeight: 1.1,
+                color: 'text.primary',
               }}
             >
               Light, shadow,

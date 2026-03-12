@@ -1,19 +1,6 @@
 import { Box, Container, Typography } from '@mui/material';
 import { ImageGallery } from '../components/ImageGallery';
-
-const illustrationImages = [
-  'acuity.png',
-  'bard.png',
-  'consume.png',
-  'cycle-of-life.png',
-  'frog.png',
-  'norse-wolves.png',
-  'sad-devil-girl.png',
-  'two-faced.png',
-  'valhala.png',
-  'vexa.png',
-  'vision-design-process.png',
-].map(name => `/illustrations/${name}`);
+import { illustrationImages } from '../data/illustrationImages';
 
 export function Designs() {
   return (
