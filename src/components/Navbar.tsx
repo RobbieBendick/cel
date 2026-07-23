@@ -21,7 +21,7 @@ export function Navbar() {
       position='sticky'
       elevation={0}
       sx={theme => ({
-        backgroundColor: alpha(theme.palette.background.paper, 0.85),
+        backgroundColor: alpha(theme.palette.background.paper, 0.88),
         backdropFilter: 'blur(12px)',
         borderBottom: `1px solid ${theme.palette.divider}`,
         color: theme.palette.text.primary,
@@ -45,19 +45,18 @@ export function Navbar() {
             to='/'
             underline='none'
             color='inherit'
-            sx={{
+            sx={theme => ({
               display: 'flex',
               alignItems: 'center',
               fontWeight: 700,
               letterSpacing: '-0.02em',
               fontSize: '1.25rem',
-              background:
-                'linear-gradient(135deg, #b8b8e8 0%, rgb(111, 111, 190) 50%, rgb(41, 41, 87) 100%)',
+              background: `linear-gradient(135deg, ${theme.palette.textGradient.start} 0%, ${theme.palette.textGradient.mid} 50%, ${theme.palette.textGradient.end} 100%)`,
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               color: 'transparent',
-            }}
+            })}
           >
             Cel
           </Link>
@@ -98,7 +97,7 @@ export function Navbar() {
                 })}
               >
                 <Box
-                  component="span"
+                  component='span'
                   sx={theme => ({
                     position: 'relative',
                     '&::after': {

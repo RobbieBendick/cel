@@ -10,10 +10,12 @@ import { BindRoutes } from './bind-routes';
 declare module '@mui/material/styles' {
   interface Palette {
     gradient: { start: string; mid: string; end: string };
+    textGradient: { start: string; mid: string; end: string };
     surface: { pill: string; cardOverlay: string };
   }
   interface PaletteOptions {
     gradient?: { start: string; mid: string; end: string };
+    textGradient?: { start: string; mid: string; end: string };
     surface?: { pill: string; cardOverlay: string };
   }
   interface TypeBackground {
@@ -23,13 +25,8 @@ declare module '@mui/material/styles' {
   }
 }
 
-const palette = {
-  lavender: 'rgb(111, 111, 190)',
-  mid: 'rgb(41, 41, 87)',
-  dark: 'rgb(33, 33, 59)',
-  deeper: 'rgb(18, 18, 33)',
-  deepest: 'rgb(12, 12, 22)',
-};
+const charcoal = '#1C1C1C';
+const iceBlue = '#D6EFFF';
 
 const getDesignTokens = (mode: PaletteMode) => {
   const textPrimary = mode === 'light' ? grey[900] : '#fff';
@@ -40,50 +37,62 @@ const getDesignTokens = (mode: PaletteMode) => {
       ...(mode === 'light'
         ? {
             primary: {
-              main: palette.lavender,
+              main: '#5BA3D0',
+              light: iceBlue,
             },
-            divider: alpha(textPrimary, 0.3),
+            divider: alpha(textPrimary, 0.2),
             background: {
-              default: '#f8f7fc',
-              paper: '#fff',
-              secondary: '#ebe9f5',
+              default: '#e8f4fc',
+              paper: '#f2f9ff',
+              secondary: '#dceffa',
             },
             text: {
               primary: grey[900],
               secondary: grey[700],
             },
             gradient: {
-              start: '#f0eff8',
-              mid: '#ffffff',
-              end: '#e8e6f2',
+              start: '#dceffa',
+              mid: '#eef7fc',
+              end: '#d6efff',
+            },
+            textGradient: {
+              start: '#e8f6ff',
+              mid: '#5BA3D0',
+              end: '#2d7aa5',
             },
             surface: {
               pill: 'rgba(255, 255, 255, 0.9)',
-              cardOverlay: 'rgba(41, 41, 87, 0.6)',
+              cardOverlay: alpha(charcoal, 0.6),
             },
           }
         : {
             primary: {
-              main: palette.lavender,
+              main: iceBlue,
+              light: '#e8f6ff',
             },
-            divider: alpha(textPrimary, 0.2),
+            divider: alpha(textPrimary, 0.15),
             background: {
-              default: palette.deepest,
-              paper: palette.deeper,
-              secondary: palette.dark,
+              default: '#1b2026',
+              paper: '#232a32',
+              secondary: '#2c343d',
             },
             text: {
               primary: '#fff',
-              secondary: 'rgba(255, 255, 255, 0.7)',
+              secondary: 'rgba(255, 255, 255, 0.75)',
             },
             gradient: {
-              start: palette.mid,
-              mid: palette.deeper,
-              end: palette.deepest,
+              start: '#252d36',
+              mid: '#1b2026',
+              end: '#141920',
+            },
+            textGradient: {
+              start: iceBlue,
+              mid: '#9ec9e8',
+              end: '#5BA3D0',
             },
             surface: {
-              pill: 'rgba(33, 33, 59, 0.85)',
-              cardOverlay: 'rgba(0, 0, 0, 0.6)',
+              pill: alpha('#2e2e2e', 0.9),
+              cardOverlay: 'rgba(0, 0, 0, 0.65)',
             },
           }),
     },

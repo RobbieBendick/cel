@@ -53,7 +53,7 @@ export function Home() {
                 borderRadius: 999,
                 border: `1px solid ${theme.palette.divider}`,
                 backdropFilter: 'blur(12px)',
-                backgroundColor: theme.palette.surface.pill,
+                backgroundColor: theme.palette.background.paper,
                 justifyContent: 'center',
               })}
             >

@@ -32,12 +32,11 @@ export function Footer() {
               to='/'
               underline='none'
               color='inherit'
-              sx={{
+              sx={theme => ({
                 fontWeight: 700,
                 letterSpacing: '-0.02em',
                 fontSize: '1.125rem',
-                background:
-                  'linear-gradient(135deg, #b8b8e8 0%, rgb(111, 111, 190) 50%, rgb(41, 41, 87) 100%)',
+                background: `linear-gradient(135deg, ${theme.palette.textGradient.start} 0%, ${theme.palette.textGradient.mid} 50%, ${theme.palette.textGradient.end} 100%)`,
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -45,7 +44,7 @@ export function Footer() {
                 '&:hover': {
                   opacity: 0.9,
                 },
-              }}
+              })}
             >
               Cel
             </Link>

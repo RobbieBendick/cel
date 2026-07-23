@@ -15,17 +15,17 @@ export function Photography() {
         <Typography
           component="h1"
           variant="h3"
-          sx={{
+          sx={theme => ({
             fontStyle: 'italic',
             fontWeight: 500,
             mb: 4,
             letterSpacing: '-0.02em',
-            background: 'linear-gradient(135deg, #b8b8e8 0%, rgb(111, 111, 190) 50%, rgb(41, 41, 87) 100%)',
+            background: `linear-gradient(135deg, ${theme.palette.textGradient.start} 0%, ${theme.palette.textGradient.mid} 50%, ${theme.palette.textGradient.end} 100%)`,
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             color: 'transparent',
-          }}
+          })}
         >
           Celeste King
         </Typography>
