@@ -1,0 +1,109 @@
+{
+  "title": "Illustrations",
+  "subtitle": "Illustration and character work",
+  "description": "Myth, mood, and invented faces. Drawings that wander into character and story.",
+  "folder": "illustrations",
+  "works": [
+    {
+      "file": "vexa.png",
+      "year": 2025,
+      "title": "Vexa",
+      "subtitle": "Character",
+      "description": "A figure held in a quieter kind of light.",
+      "story": "Vexa started as a quiet character study: posture first, then the face, then the light around her. This page is for the sketches, color tests, and notes that led to the finished piece.",
+      "images": ["acuity.png", "sad-devil-girl.png", "bard.png"],
+      "featured": true
+    },
+    {
+      "file": "norse-wolves.png",
+      "year": 2025,
+      "title": "Norse Wolves",
+      "subtitle": "Myth",
+      "description": "Two shapes from an older story.",
+      "story": "Two wolves, one story. The aim was to keep the drawing graphic and heavy, like a mark more than a scene.",
+      "images": [],
+      "featured": true
+    },
+    {
+      "file": "acuity.png",
+      "year": 2025,
+      "title": "Acuity",
+      "subtitle": "Illustration",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "bard.png",
+      "year": 2025,
+      "title": "Bard",
+      "subtitle": "Character",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "consume.png",
+      "year": 2024,
+      "title": "Consume",
+      "subtitle": "Illustration",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "cycle-of-life.png",
+      "year": 2024,
+      "title": "Cycle of Life",
+      "subtitle": "Illustration",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "frog.png",
+      "year": 2024,
+      "title": "Frog",
+      "subtitle": "Illustration",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "sad-devil-girl.png",
+      "year": 2024,
+      "title": "Sad Devil Girl",
+      "subtitle": "Character",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "two-faced.png",
+      "year": 2024,
+      "title": "Two-Faced",
+      "subtitle": "Illustration",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "valhala.png",
+      "year": 2024,
+      "title": "Valhalla",
+      "subtitle": "Myth",
+      "description": "",
+      "story": "",
+      "images": []
+    },
+    {
+      "file": "vision-design-process.png",
+      "year": 2024,
+      "title": "Vision",
+      "subtitle": "Process",
+      "description": "",
+      "story": "A look at how an idea moved from notes and thumbnails into a finished vision. Add more process images to this project's images list as you go.",
+      "images": []
+    }
+  ]
+}

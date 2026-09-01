@@ -1,11 +1,10 @@
-import './App.css';
-import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, useMediaQuery } from '@mui/material';
-import React, { useState, useMemo, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { PaletteMode } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { ColorModeContext } from './ColorModeContext';
 import { BindRoutes } from './bind-routes';
+import { site } from './content';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -25,84 +24,61 @@ declare module '@mui/material/styles' {
   }
 }
 
-const charcoal = '#1C1C1C';
-const iceBlue = '#D6EFFF';
+const serif = '"Fraunces", "Times New Roman", serif';
+const sans = '"Figtree", system-ui, sans-serif';
 
 const getDesignTokens = (mode: PaletteMode) => {
-  const textPrimary = mode === 'light' ? grey[900] : '#fff';
+  const light = mode === 'light';
 
   return {
     palette: {
       mode,
-      ...(mode === 'light'
-        ? {
-            primary: {
-              main: '#5BA3D0',
-              light: iceBlue,
-            },
-            divider: alpha(textPrimary, 0.2),
-            background: {
-              default: '#e8f4fc',
-              paper: '#f2f9ff',
-              secondary: '#dceffa',
-            },
-            text: {
-              primary: grey[900],
-              secondary: grey[700],
-            },
-            gradient: {
-              start: '#dceffa',
-              mid: '#eef7fc',
-              end: '#d6efff',
-            },
-            textGradient: {
-              start: '#e8f6ff',
-              mid: '#5BA3D0',
-              end: '#2d7aa5',
-            },
-            surface: {
-              pill: 'rgba(255, 255, 255, 0.9)',
-              cardOverlay: alpha(charcoal, 0.6),
-            },
-          }
-        : {
-            primary: {
-              main: iceBlue,
-              light: '#e8f6ff',
-            },
-            divider: alpha(textPrimary, 0.15),
-            background: {
-              default: '#1b2026',
-              paper: '#232a32',
-              secondary: '#2c343d',
-            },
-            text: {
-              primary: '#fff',
-              secondary: 'rgba(255, 255, 255, 0.75)',
-            },
-            gradient: {
-              start: '#252d36',
-              mid: '#1b2026',
-              end: '#141920',
-            },
-            textGradient: {
-              start: iceBlue,
-              mid: '#9ec9e8',
-              end: '#5BA3D0',
-            },
-            surface: {
-              pill: alpha('#2e2e2e', 0.9),
-              cardOverlay: 'rgba(0, 0, 0, 0.65)',
-            },
-          }),
+      primary: {
+        main: light ? '#4e5d46' : '#c9b89a',
+      },
+      divider: light ? 'rgba(28, 25, 21, 0.12)' : 'rgba(243, 238, 230, 0.12)',
+      background: {
+        default: light ? '#f3eee6' : '#12100e',
+        paper: light ? '#faf7f1' : '#1b1815',
+        secondary: light ? '#e8e0d4' : '#241f1b',
+      },
+      text: {
+        primary: light ? '#1c1915' : '#f3eee6',
+        secondary: light ? 'rgba(28, 25, 21, 0.68)' : 'rgba(243, 238, 230, 0.68)',
+      },
+      gradient: {
+        start: light ? '#efe8dc' : '#1b1815',
+        mid: light ? '#f3eee6' : '#12100e',
+        end: light ? '#e6ddd0' : '#0d0c0a',
+      },
+      textGradient: {
+        start: light ? '#2b2823' : '#f7f1e8',
+        mid: light ? '#4e5d46' : '#c9b89a',
+        end: light ? '#3d4a38' : '#e8dcc6',
+      },
+      surface: {
+        pill: light ? 'rgba(250, 247, 241, 0.9)' : 'rgba(27, 24, 21, 0.9)',
+        cardOverlay: light ? 'rgba(18, 16, 14, 0.55)' : 'rgba(0, 0, 0, 0.62)',
+      },
     },
+    typography: {
+      fontFamily: sans,
+      h1: { fontFamily: serif, fontWeight: 500, letterSpacing: '-0.03em' },
+      h2: { fontFamily: serif, fontWeight: 500, letterSpacing: '-0.03em' },
+      h3: { fontFamily: serif, fontWeight: 500, letterSpacing: '-0.02em' },
+      h4: { fontFamily: serif, fontWeight: 500 },
+      h5: { fontFamily: serif, fontWeight: 500 },
+      h6: { fontFamily: serif, fontWeight: 500 },
+      subtitle1: { fontFamily: serif },
+      subtitle2: { fontFamily: sans, fontWeight: 500, letterSpacing: '0.08em' },
+      button: { fontFamily: sans, fontWeight: 600, textTransform: 'none' as const },
+    },
+    shape: { borderRadius: 2 },
   };
 };
 
 function App() {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  // Retrieve the color mode from localStorage if available, otherwise use prefersDarkMode
   const storedColorMode = localStorage.getItem('colorMode');
   const initialMode =
     storedColorMode === 'dark' || storedColorMode === 'light'
@@ -128,17 +104,16 @@ function App() {
 
   useEffect(() => {
     document.body.style.backgroundColor = theme.palette.background.default;
+    document.title = site.artistName;
   }, [theme]);
 
   return (
-    <>
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <BindRoutes />
-        </ThemeProvider>
-      </ColorModeContext.Provider>
-    </>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BindRoutes />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 

@@ -1,242 +1,302 @@
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-} from '@mui/material';
-import { alpha } from '@mui/material/styles';
-import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+import { designs, featuredWorks, photography, site } from '../content';
+import type { Collection, Work } from '../content';
 
-const heroImages = [
-  '/photography/oddity.png',
-  '/photography/wary.png',
-  '/photography/northern-mockingbird.png',
-];
-
-export function Home() {
-  const navigate = useNavigate();
+function FeaturedFrame({ work }: { work: Work }) {
   return (
-    <Box
-      sx={theme => ({
-        minHeight: '100vh',
-        background: `radial-gradient(circle at top, ${theme.palette.gradient.start} 0, ${theme.palette.gradient.mid} 55%, ${theme.palette.gradient.end} 100%)`,
-        color: 'text.primary',
-        display: 'flex',
-        alignItems: 'stretch',
-      })}
-    >
-      <Container
-        maxWidth='lg'
+    <Box component='figure' sx={{ m: 0 }}>
+      <Box
         sx={{
-          py: { xs: 6, md: 10 },
-          display: 'flex',
-          flexDirection: { xs: 'column', md: 'row' },
-          gap: { xs: 6, md: 8 },
-          alignItems: 'center',
+          overflow: 'hidden',
+          bgcolor: 'background.paper',
+          maxHeight: { xs: 520, md: 720 },
         }}
       >
-        {/* Hero text */}
-        <Box sx={{ flex: { xs: '0 0 auto', md: '0 0 48%' } }}>
-          <Stack spacing={3}>
-            <Box
-              sx={theme => ({
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 1,
-                px: 1.5,
-                py: 0.75,
-                borderRadius: 999,
-                border: `1px solid ${theme.palette.divider}`,
-                backdropFilter: 'blur(12px)',
-                backgroundColor: theme.palette.background.paper,
-                justifyContent: 'center',
-              })}
-            >
-              <CameraAltRoundedIcon fontSize='small' color='primary' />
-              <Typography
-                variant='caption'
-                sx={{ letterSpacing: 1.2, textTransform: 'uppercase' }}
-              >
-                Fine art & portrait photography
-              </Typography>
-            </Box>
+        <Box
+          component='img'
+          src={work.src}
+          alt={work.title}
+          sx={{
+            width: '100%',
+            height: { xs: 420, md: 640 },
+            objectFit: 'cover',
+            display: 'block',
+          }}
+        />
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: 2,
+          mt: 1.75,
+          flexWrap: 'wrap',
+        }}
+      >
+        <Typography sx={{ fontFamily: '"Fraunces", serif', fontSize: '1.1rem' }}>
+          {work.title}
+        </Typography>
+        {work.subtitle && (
+          <Typography
+            variant='body2'
+            sx={{
+              color: 'text.secondary',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+              fontSize: '0.7rem',
+              alignSelf: 'center',
+            }}
+          >
+            {work.subtitle}
+          </Typography>
+        )}
+      </Box>
+    </Box>
+  );
+}
 
-            <Typography
-              variant='h2'
+function CollectionTease({
+  collection,
+  to,
+  work,
+}: {
+  collection: Collection;
+  to: string;
+  work: Work;
+}) {
+  return (
+    <Box
+      component={RouterLink}
+      to={to}
+      sx={{
+        textDecoration: 'none',
+        color: 'inherit',
+        display: 'block',
+        '&:hover img': { transform: 'scale(1.03)' },
+      }}
+    >
+      <Box sx={{ overflow: 'hidden', bgcolor: 'background.paper' }}>
+        <Box
+          component='img'
+          src={work.src}
+          alt={collection.title}
+          sx={{
+            width: '100%',
+            height: { xs: 280, md: 380 },
+            objectFit: 'cover',
+            display: 'block',
+            transition: 'transform 0.55s ease',
+          }}
+        />
+      </Box>
+      <Typography
+        sx={{
+          mt: 2,
+          fontFamily: '"Fraunces", serif',
+          fontSize: { xs: '1.6rem', md: '2rem' },
+        }}
+      >
+        {collection.title}
+      </Typography>
+      {collection.subtitle && (
+        <Typography
+          variant='body2'
+          sx={{ mt: 0.75, color: 'text.secondary', maxWidth: 360, lineHeight: 1.6 }}
+        >
+          {collection.description || collection.subtitle}
+        </Typography>
+      )}
+    </Box>
+  );
+}
+
+export function Home() {
+  const hero = featuredWorks(photography, 1)[0];
+  const photoTease =
+    photography.works.find(work => work.src !== hero?.src) ?? photography.works[0];
+  const designTease = featuredWorks(designs, 1)[0];
+  const selected = [
+    ...featuredWorks(photography, 3).filter(work => work.src !== hero?.src),
+    ...featuredWorks(designs, 2),
+  ].slice(0, 4);
+
+  return (
+    <Box sx={{ pb: { xs: 8, md: 12 } }}>
+      <Container maxWidth='lg' sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 6, md: 8 } }}>
+        <Stack spacing={3} maxWidth={760}>
+          <Typography
+            sx={{
+              fontSize: '0.72rem',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'text.secondary',
+            }}
+          >
+            {site.home.eyebrow}
+          </Typography>
+          <Typography
+            component='h1'
+            sx={{
+              fontFamily: '"Fraunces", serif',
+              fontWeight: 500,
+              fontSize: { xs: '2rem', sm: '3.8rem', md: '5rem' },
+              lineHeight: 1.05,
+              letterSpacing: '-0.04em',
+              overflowWrap: 'break-word',
+            }}
+          >
+            {site.home.headline}
+          </Typography>
+          <Typography
+            sx={{
+              color: 'text.secondary',
+              fontSize: { xs: '1.05rem', md: '1.2rem' },
+              lineHeight: 1.7,
+              maxWidth: 560,
+            }}
+          >
+            {site.home.description}
+          </Typography>
+          <Stack direction='row' spacing={2} flexWrap='wrap' useFlexGap>
+            <Button
+              component={RouterLink}
+              to='/photography'
+              variant='contained'
+              size='large'
               sx={{
-                fontWeight: 700,
-                letterSpacing: '-0.04em',
-                fontSize: { xs: '2.6rem', md: '3.5rem' },
-                lineHeight: 1.1,
-                color: 'text.primary',
+                px: 3,
+                py: 1.25,
+                borderRadius: 0,
+                boxShadow: 'none',
+                '&:hover': { boxShadow: 'none' },
               }}
             >
-              Light, shadow,
-              <br />
-              and the stories in between.
-            </Typography>
-            <Box maxWidth={'100%'}>
-              <Typography
-                variant='body1'
-                sx={{
-                  maxWidth: 480,
-                  mx: 'auto',
-                  textAlign: 'center',
-                  color: 'text.secondary',
-                }}
-              >
-                I make portraits and editorial work that lives in the quiet: the
-                in-between, the still, the details that don’t shout but stay
-                with you after you look away.
-              </Typography>
-            </Box>
-
-            <Stack
-              direction='row'
-              spacing={2}
-              alignItems='center'
-              flexWrap='wrap'
-              justifyContent='center'
+              Photography
+            </Button>
+            <Button
+              component={RouterLink}
+              to='/designs'
+              variant='outlined'
+              size='large'
+              sx={{
+                px: 3,
+                py: 1.25,
+                borderRadius: 0,
+                color: 'text.primary',
+                borderColor: 'divider',
+              }}
             >
-              <Button
-                variant='contained'
-                size='large'
-                sx={theme => ({
-                  borderRadius: 999,
-                  px: 3,
-                  py: 1.2,
-                  textTransform: 'none',
-                  fontWeight: 600,
-                  boxShadow: `0 18px 45px ${alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.4 : 0.35)}`,
-                })}
-                onClick={() => navigate('/designs')}
-              >
-                View designs
-              </Button>
-
-              <Button
-                variant='outlined'
-                size='large'
-                sx={{
-                  borderRadius: 999,
-                  textTransform: 'none',
-                  fontWeight: 500,
-                  color: 'text.primary',
-                }}
-                onClick={() => navigate('/photography')}
-              >
-                View photography
-              </Button>
-            </Stack>
-
-            <Typography variant='caption' sx={{ color: 'text.secondary' }}>
-              Available for editorial, portrait, and gallery work worldwide.
-            </Typography>
+              Illustrations
+            </Button>
           </Stack>
-        </Box>
+          <Typography variant='caption' sx={{ color: 'text.secondary', letterSpacing: '0.04em' }}>
+            {site.home.availability}
+          </Typography>
+        </Stack>
+      </Container>
 
-        {/* Hero imagery grid */}
+      {hero && (
+        <Container maxWidth='lg' sx={{ mb: { xs: 8, md: 12 } }}>
+          <FeaturedFrame work={hero} />
+        </Container>
+      )}
+
+      <Container maxWidth='lg' sx={{ mb: { xs: 8, md: 12 } }}>
         <Box
           sx={{
-            flex: { xs: '0 0 auto', md: '0 0 52%' },
-            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+            gap: { xs: 5, md: 6 },
           }}
         >
+          {photoTease && (
+            <CollectionTease
+              collection={photography}
+              to='/photography'
+              work={photoTease}
+            />
+          )}
+          {designTease && (
+            <CollectionTease collection={designs} to='/designs' work={designTease} />
+          )}
+        </Box>
+      </Container>
+
+      {selected.length > 0 && (
+        <Container maxWidth='lg'>
+          <Typography
+            sx={{
+              mb: 3,
+              fontSize: '0.72rem',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: 'text.secondary',
+            }}
+          >
+            Selected work
+          </Typography>
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: {
-                xs: '1fr',
-                sm: 'repeat(2, minmax(0, 1fr))',
-              },
-              gap: 2,
-              alignItems: 'stretch',
+              gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(4, 1fr)' },
+              gap: { xs: 2, md: 3 },
             }}
           >
-            {heroImages.map((src, index) => (
-              <Box
-                key={src}
-                sx={{
-                  gridColumn: {
-                    xs: 'auto',
-                    sm: index === 0 ? '1 / 3' : 'auto',
-                  },
-                }}
-              >
-                <Card
-                  elevation={0}
-                  sx={theme => ({
-                    height: index === 0 ? 320 : 220,
-                    position: 'relative',
-                    borderRadius: 4,
-                    overflow: 'hidden',
-                    background: `linear-gradient(135deg, ${theme.palette.background.secondary} 0%, ${theme.palette.background.paper} 100%)`,
-                    boxShadow: theme.shadows[8],
-                    '&::after': {
-                      content: '""',
-                      position: 'absolute',
-                      inset: 0,
-                      background:
-                        'radial-gradient(circle at top, rgba(255,255,255,0.12), transparent 55%)',
-                      mixBlendMode: 'screen',
-                      pointerEvents: 'none',
-                    },
-                  })}
+            {selected.map(work => {
+              const to = photography.works.some(item => item.src === work.src)
+                ? '/photography'
+                : '/designs';
+              return (
+                <Box
+                  key={work.src}
+                  component={RouterLink}
+                  to={to}
+                  sx={{
+                    m: 0,
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    display: 'block',
+                    '&:hover img': { transform: 'scale(1.03)' },
+                  }}
                 >
-                  <CardMedia
-                    component='img'
-                    src={src}
-                    alt='Artist photography'
+                  <Box sx={{ overflow: 'hidden', bgcolor: 'background.paper' }}>
+                    <Box
+                      component='img'
+                      src={work.src}
+                      alt={work.title}
+                      sx={{
+                        width: '100%',
+                        height: { xs: 180, md: 240 },
+                        objectFit: 'cover',
+                        display: 'block',
+                        transition: 'transform 0.5s ease',
+                      }}
+                    />
+                  </Box>
+                  <Typography
                     sx={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      filter:
-                        index === 1
-                          ? 'grayscale(20%) contrast(1.05)'
-                          : 'contrast(1.02)',
-                      transformOrigin: 'center center',
-                      transition: 'transform 600ms ease, filter 600ms ease',
-                      '&:hover': {
-                        transform: 'scale(1.03)',
-                        filter: 'contrast(1.08) saturate(1.05)',
-                      },
+                      mt: 1.25,
+                      fontFamily: '"Fraunces", serif',
+                      fontSize: '0.98rem',
                     }}
-                  />
-
-                  {index === 0 && (
-                    <CardContent
-                      sx={theme => ({
-                        position: 'absolute',
-                        bottom: 16,
-                        left: 16,
-                        right: 16,
-                        bgcolor: theme.palette.surface.cardOverlay,
-                        borderRadius: 3,
-                        color: theme.palette.common.white,
-                        backdropFilter: 'blur(10px)',
-                        p: 1.5,
-                      })}
+                  >
+                    {work.title}
+                  </Typography>
+                  {work.subtitle && (
+                    <Typography
+                      variant='caption'
+                      sx={{ color: 'text.secondary', letterSpacing: '0.06em' }}
                     >
-                      <Typography variant='subtitle2' sx={{ fontWeight: 600 }}>
-                        Latest series: City in Soft Focus
-                      </Typography>
-                      <Typography variant='caption' sx={{ opacity: 0.8 }}>
-                        A study of quiet moments in restless places.
-                      </Typography>
-                    </CardContent>
+                      {work.subtitle}
+                    </Typography>
                   )}
-                </Card>
-              </Box>
-            ))}
+                </Box>
+              );
+            })}
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      )}
     </Box>
   );
 }

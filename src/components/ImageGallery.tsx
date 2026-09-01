@@ -1,28 +1,37 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
-import ZoomInRoundedIcon from '@mui/icons-material/ZoomInRounded';
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import { ImageLightbox } from './ImageLightbox';
+import { worksByYear, type Work } from '../content';
 
 interface ImageGalleryProps {
-  images: string[];
-  aspectRatio?: string;
+  works: Work[];
+  variant?: 'masonry' | 'grid';
+  cascadeKey?: string;
 }
 
-export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps) {
+export function ImageGallery({
+  works,
+  variant = 'grid',
+  cascadeKey = 'all',
+}: ImageGalleryProps) {
+  const groups = useMemo(() => worksByYear(works), [works]);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    setLightboxIndex(null);
+  }, [works]);
 
   const goPrev = useCallback(() => {
     setLightboxIndex(i =>
-      i === null ? null : i <= 0 ? images.length - 1 : i - 1,
+      i === null ? null : i <= 0 ? works.length - 1 : i - 1,
     );
-  }, [images.length]);
+  }, [works.length]);
 
   const goNext = useCallback(() => {
     setLightboxIndex(i =>
-      i === null ? null : i >= images.length - 1 ? 0 : i + 1,
+      i === null ? null : i >= works.length - 1 ? 0 : i + 1,
     );
-  }, [images.length]);
+  }, [works.length]);
 
   useEffect(() => {
     if (lightboxIndex === null) return;
@@ -41,143 +50,200 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
 
   return (
     <>
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: {
-            xs: '1fr',
-            sm: 'repeat(2, 1fr)',
-            md: 'repeat(3, 1fr)',
-          },
-          gap: 2,
-        }}
-      >
-        {images.map((src, index) => (
+      <Box className='gallery-scope'>
+      {groups.map((group, groupIndex) => {
+        const startIndex = groups
+          .slice(0, groupIndex)
+          .reduce((sum, item) => sum + item.works.length, 0);
+
+        return (
           <Box
-            key={src}
-            component="figure"
-            role="button"
-            tabIndex={0}
-            onClick={() => setLightboxIndex(index)}
-            onKeyDown={e => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                setLightboxIndex(index);
-              }
-            }}
+            key={group.year}
+            className='gallery-year-block'
             sx={{
-              margin: 0,
-              borderRadius: 3,
-              overflow: 'hidden',
-              aspectRatio,
-              bgcolor: 'background.paper',
-              boxShadow: theme => theme.shadows[2],
-              cursor: 'pointer',
-              position: 'relative',
-              '&:hover img': {
-                transform: 'scale(1.03)',
-              },
-              '&:hover .gallery-hover-overlay': {
-                opacity: 1,
-              },
+              mb: { xs: 5, md: 7 },
+              transition: 'opacity 0.2s ease',
+              '.gallery-scope:has(.gallery-card:hover) &:not(:has(.gallery-card:hover))':
+                {
+                  opacity: 0.42,
+                },
             }}
           >
             <Box
-              component="img"
-              src={src}
-              alt=""
-              loading="lazy"
+              className='gallery-cascade'
               sx={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                transition: 'transform 0.4s ease',
-              }}
-            />
-            <Box
-              className="gallery-hover-overlay"
-              sx={theme => ({
-                position: 'absolute',
-                inset: 0,
                 display: 'flex',
-                flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
-                gap: 1,
-                bgcolor: 'rgba(0,0,0,0.5)',
-                opacity: 0,
-                transition: 'opacity 0.25s ease',
-                color: theme.palette.common.white,
-              })}
+                gap: 2,
+                mb: { xs: 3, md: 4 },
+                '--cascade': startIndex,
+              }}
             >
-              <ZoomInRoundedIcon sx={{ fontSize: 48 }} />
-              <Typography variant="body2" fontWeight={500}>
-                Click to view
+              <Typography
+                component='h2'
+                sx={{
+                  fontSize: { xs: '1.5rem', md: '1.75rem' },
+                  fontWeight: 500,
+                  lineHeight: 1,
+                  flexShrink: 0,
+                }}
+              >
+                {group.year}
               </Typography>
+              <Box
+                sx={theme => ({
+                  flex: 1,
+                  height: '1px',
+                  bgcolor: theme.palette.text.primary,
+                  opacity: 0.85,
+                })}
+              />
+            </Box>
+
+            <Box
+              className='gallery-grid'
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: {
+                  xs: 'repeat(2, minmax(0, 1fr))',
+                  md: 'repeat(4, minmax(0, 1fr))',
+                },
+                gap: { xs: 2.5, md: 3.5 },
+                alignItems: 'stretch',
+              }}
+            >
+              {group.works.map((work, cardIndex) => {
+                const index = works.findIndex(item => item.src === work.src);
+                const cascade = startIndex + cardIndex;
+                return (
+                  <Box
+                    key={`${cascadeKey}-${work.src}`}
+                    className='gallery-card'
+                    component='figure'
+                    role='button'
+                    tabIndex={0}
+                    onClick={() => setLightboxIndex(index)}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setLightboxIndex(index);
+                      }
+                    }}
+                    sx={theme => ({
+                      margin: 0,
+                      cursor: 'pointer',
+                      transition:
+                        'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease',
+                      '@media (hover: hover)': {
+                        '.gallery-scope:has(.gallery-card:hover) &:not(:hover)': {
+                          opacity: 0.42,
+                        },
+                        '&:hover': {
+                          transform: 'translateY(-8px)',
+                        },
+                        '&:hover .gallery-card-frame': {
+                          boxShadow:
+                            theme.palette.mode === 'dark'
+                              ? '0 22px 48px rgba(0, 0, 0, 0.55)'
+                              : '0 22px 48px rgba(28, 25, 21, 0.16)',
+                        },
+                        '&:hover img': {
+                          transform: 'scale(1.06)',
+                        },
+                      },
+                      '@media (prefers-reduced-motion: reduce)': {
+                        transition: 'opacity 0.2s ease',
+                        '&:hover': { transform: 'none' },
+                        '&:hover img': { transform: 'none' },
+                      },
+                      '&:focus-visible': {
+                        outline: `1px solid ${theme.palette.text.primary}`,
+                        outlineOffset: 4,
+                      },
+                    })}
+                  >
+                    <Box
+                      className='gallery-cascade'
+                      sx={{
+                        '--cascade': cascade,
+                        height: '100%',
+                      }}
+                    >
+                    <Box
+                      className='gallery-card-frame'
+                      sx={{
+                        overflow: 'hidden',
+                        bgcolor: 'background.secondary',
+                        aspectRatio: variant === 'grid' ? '4 / 5' : 'auto',
+                        borderRadius: { xs: '20px', md: '32px' },
+                        transition:
+                          'box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
+                      }}
+                    >
+                      <Box
+                        component='img'
+                        src={work.src}
+                        alt={work.title}
+                        loading='eager'
+                        sx={{
+                          width: '100%',
+                          height: variant === 'grid' ? '100%' : 'auto',
+                          objectFit: 'cover',
+                          objectPosition: 'center',
+                          display: 'block',
+                          transition:
+                            'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)',
+                        }}
+                      />
+                    </Box>
+                    <Box sx={{ mt: 1.5, px: 0.25 }}>
+                      <Typography
+                        component='h3'
+                        sx={{
+                          fontFamily: '"Fraunces", serif',
+                          fontWeight: 500,
+                          fontSize: '1.05rem',
+                          letterSpacing: '-0.02em',
+                          lineHeight: 1.25,
+                        }}
+                      >
+                        {work.title}
+                      </Typography>
+                      {work.subtitle && (
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            mt: 0.5,
+                            color: 'text.secondary',
+                            letterSpacing: '0.08em',
+                            textTransform: 'uppercase',
+                            fontSize: '0.68rem',
+                          }}
+                        >
+                          {work.subtitle}
+                        </Typography>
+                      )}
+                    </Box>
+                    </Box>
+                  </Box>
+                );
+              })}
             </Box>
           </Box>
-        ))}
+        );
+      })}
       </Box>
 
       {lightboxIndex !== null && (
-        <Box
-          role="dialog"
-          aria-modal="true"
-          aria-label="Image viewer"
-          onClick={() => setLightboxIndex(null)}
-          sx={theme => ({
-            position: 'fixed',
-            inset: 0,
-            zIndex: theme.zIndex.modal,
-            bgcolor: 'rgba(0,0,0,0.92)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          })}
-        >
-          <Box
-            component="img"
-            src={images[lightboxIndex]}
-            alt=""
-            onClick={e => e.stopPropagation()}
-            sx={{
-              maxWidth: '90vw',
-              maxHeight: '90vh',
-              objectFit: 'contain',
-            }}
-          />
-          <IconButton
-            onClick={e => {
-              e.stopPropagation();
-              goPrev();
-            }}
-            sx={theme => ({
-              position: 'absolute',
-              left: 16,
-              color: theme.palette.common.white,
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
-            })}
-            aria-label="Previous image"
-          >
-            <ChevronLeftRoundedIcon sx={{ fontSize: 48 }} />
-          </IconButton>
-          <IconButton
-            onClick={e => {
-              e.stopPropagation();
-              goNext();
-            }}
-            sx={theme => ({
-              position: 'absolute',
-              right: 16,
-              color: theme.palette.common.white,
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
-            })}
-            aria-label="Next image"
-          >
-            <ChevronRightRoundedIcon sx={{ fontSize: 48 }} />
-          </IconButton>
-        </Box>
+        <ImageLightbox
+          works={works}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={goPrev}
+          onNext={goNext}
+        />
       )}
     </>
   );
 }
+

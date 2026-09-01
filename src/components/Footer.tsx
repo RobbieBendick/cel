@@ -2,10 +2,13 @@ import { Box, Container, Link, Stack, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { site } from '../content';
 
 const navLinks = [
-  { label: 'Designs', path: '/designs' },
+  { label: 'Illustrations/Projects', path: '/' },
   { label: 'Photography', path: '/photography' },
+  { label: 'Sketchbook', path: '/sketchbook' },
+  { label: 'About Me', path: '/about' },
 ] as const;
 
 export function Footer() {
@@ -14,12 +17,12 @@ export function Footer() {
       component='footer'
       sx={theme => ({
         borderTop: `1px solid ${theme.palette.divider}`,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: theme.palette.background.default,
         color: theme.palette.text.secondary,
         mt: 'auto',
       })}
     >
-      <Container maxWidth='lg' sx={{ py: { xs: 4, md: 5 } }}>
+      <Container maxWidth='lg' sx={{ py: { xs: 5, md: 6 } }}>
         <Stack
           direction={{ xs: 'column', md: 'row' }}
           spacing={{ xs: 4, md: 0 }}
@@ -31,26 +34,18 @@ export function Footer() {
               component={RouterLink}
               to='/'
               underline='none'
-              color='inherit'
-              sx={theme => ({
-                fontWeight: 700,
-                letterSpacing: '-0.02em',
-                fontSize: '1.125rem',
-                background: `linear-gradient(135deg, ${theme.palette.textGradient.start} 0%, ${theme.palette.textGradient.mid} 50%, ${theme.palette.textGradient.end} 100%)`,
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                color: 'transparent',
-                '&:hover': {
-                  opacity: 0.9,
-                },
-              })}
+              color='text.primary'
+              sx={{
+                fontFamily: '"Fraunces", serif',
+                fontWeight: 500,
+                fontSize: '1.35rem',
+                letterSpacing: '-0.03em',
+              }}
             >
-              Cel
+              {site.artistName}
             </Link>
-            <Typography variant='body2' sx={{ mt: 1, maxWidth: 280 }}>
-              Fine art & portrait photography. Available for editorial,
-              portrait, and gallery work worldwide.
+            <Typography variant='body2' sx={{ mt: 1.25, maxWidth: 320, lineHeight: 1.6 }}>
+              {site.footer.blurb}
             </Typography>
           </Box>
 
@@ -60,12 +55,14 @@ export function Footer() {
                 key={path}
                 component={RouterLink}
                 to={path}
-                underline='hover'
+                underline='none'
                 sx={{
                   fontWeight: 500,
-                  fontSize: '0.9375rem',
+                  fontSize: '0.78rem',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
                   color: 'text.secondary',
-                  '&:hover': { color: 'primary.main' },
+                  '&:hover': { color: 'text.primary' },
                 }}
               >
                 {label}
@@ -73,9 +70,9 @@ export function Footer() {
             ))}
           </Stack>
 
-          <Stack direction='row' spacing={2} alignItems='center'>
+          <Stack direction='row' spacing={1} alignItems='center'>
             <Link
-              href='https://instagram.com'
+              href={site.instagramUrl}
               target='_blank'
               rel='noopener noreferrer'
               aria-label='Instagram'
@@ -85,21 +82,14 @@ export function Footer() {
                 justifyContent: 'center',
                 width: 40,
                 height: 40,
-                borderRadius: 2,
                 color: 'text.secondary',
-                '&:hover': {
-                  color: theme.palette.primary.main,
-                  backgroundColor:
-                    theme.palette.mode === 'dark'
-                      ? 'rgba(255,255,255,0.08)'
-                      : 'rgba(0,0,0,0.04)',
-                },
+                '&:hover': { color: theme.palette.text.primary },
               })}
             >
               <InstagramIcon fontSize='small' />
             </Link>
             <Link
-              href='mailto:hello@example.com'
+              href={`mailto:${site.email}`}
               aria-label='Email'
               sx={theme => ({
                 display: 'inline-flex',
@@ -107,15 +97,8 @@ export function Footer() {
                 justifyContent: 'center',
                 width: 40,
                 height: 40,
-                borderRadius: 2,
                 color: 'text.secondary',
-                '&:hover': {
-                  color: theme.palette.primary.main,
-                  backgroundColor:
-                    theme.palette.mode === 'dark'
-                      ? 'rgba(255,255,255,0.08)'
-                      : 'rgba(0,0,0,0.04)',
-                },
+                '&:hover': { color: theme.palette.text.primary },
               })}
             >
               <MailOutlineIcon fontSize='small' />
@@ -127,14 +110,13 @@ export function Footer() {
           variant='caption'
           sx={theme => ({
             display: 'block',
-            mt: 4,
+            mt: 5,
             pt: 3,
             borderTop: `1px solid ${theme.palette.divider}`,
-            color: 'text.secondary',
-            opacity: 0.8,
+            letterSpacing: '0.04em',
           })}
         >
-          © {new Date().getFullYear()} Cel. All rights reserved.
+          © {new Date().getFullYear()} {site.artistName}
         </Typography>
       </Container>
     </Box>

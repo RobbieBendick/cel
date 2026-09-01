@@ -1,0 +1,30 @@
+{
+  "eyebrow": "About",
+  "headline": "Celeste King",
+  "role": "Photography & illustration",
+  "portraitFile": "misty-land.png",
+  "portraitFolder": "photography",
+  "portraitAlt": "Landscape study",
+  "bio": [
+    "I look closely at birds, moss, weather, and the animals that pause long enough to be seen. Then I draw what stays after I look away.",
+    "The photographs are field notes. The illustrations wander into myth, character, and the slightly strange. The sketchbook is where both of those start, unfinished on purpose."
+  ],
+  "focus": [
+    {
+      "title": "Photography",
+      "text": "Wildlife, landscape, and quiet ground.",
+      "href": "/photography"
+    },
+    {
+      "title": "Illustration",
+      "text": "Characters, myth, and invented faces.",
+      "href": "/"
+    },
+    {
+      "title": "Sketchbook",
+      "text": "Warm-ups, studies, and pages that never had to be done.",
+      "href": "/sketchbook"
+    }
+  ],
+  "cta": "Say hello"
+}

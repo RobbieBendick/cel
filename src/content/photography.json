@@ -1,0 +1,137 @@
+{
+  "title": "Photography",
+  "subtitle": "Wildlife, landscape, and field studies",
+  "description": "Birds, moss, weather, and the animals that pause long enough to be seen.",
+  "folder": "photography",
+  "works": [
+    {
+      "file": "oddity.png",
+      "year": 2025,
+      "title": "Oddity",
+      "subtitle": "Wildlife",
+      "description": "A small subject, held still for a moment longer than it wanted.",
+      "featured": true
+    },
+    {
+      "file": "misty-land.png",
+      "year": 2025,
+      "title": "Misty Land",
+      "subtitle": "Landscape",
+      "description": "Distance turning into weather.",
+      "featured": true
+    },
+    {
+      "file": "wary.png",
+      "year": 2025,
+      "title": "Wary",
+      "subtitle": "Wildlife",
+      "description": "The look before the leave.",
+      "featured": true
+    },
+    {
+      "file": "carolina-wren.png",
+      "year": 2025,
+      "title": "Carolina Wren",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "entodon.png",
+      "year": 2024,
+      "title": "Entodon",
+      "subtitle": "Field study",
+      "description": ""
+    },
+    {
+      "file": "fire-and-ice.png",
+      "year": 2024,
+      "title": "Fire and Ice",
+      "subtitle": "Landscape",
+      "description": ""
+    },
+    {
+      "file": "gorilla-1.png",
+      "year": 2024,
+      "title": "Gorilla",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "gorilla-2.png",
+      "year": 2024,
+      "title": "Gorilla II",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "great-tailed-grackle.png",
+      "year": 2024,
+      "title": "Great-tailed Grackle",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "great-white-pelican.png",
+      "year": 2024,
+      "title": "Great White Pelican",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "grey-crowned-crane.png",
+      "year": 2024,
+      "title": "Grey Crowned Crane",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "hen-of-the-wood.png",
+      "year": 2024,
+      "title": "Hen of the Wood",
+      "subtitle": "Field study",
+      "description": ""
+    },
+    {
+      "file": "kitty.png",
+      "year": 2024,
+      "title": "Kitty",
+      "subtitle": "Portrait",
+      "description": ""
+    },
+    {
+      "file": "mossy-log.png",
+      "year": 2024,
+      "title": "Mossy Log",
+      "subtitle": "Field study",
+      "description": ""
+    },
+    {
+      "file": "northern-mockingbird.png",
+      "year": 2024,
+      "title": "Northern Mockingbird",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "pink-flowers.png",
+      "year": 2024,
+      "title": "Pink Flowers",
+      "subtitle": "Flora",
+      "description": ""
+    },
+    {
+      "file": "snake-1.png",
+      "year": 2024,
+      "title": "Snake",
+      "subtitle": "Wildlife",
+      "description": ""
+    },
+    {
+      "file": "sunset.png",
+      "year": 2024,
+      "title": "Sunset",
+      "subtitle": "Landscape",
+      "description": ""
+    }
+  ]
+}
