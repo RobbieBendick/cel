@@ -9,7 +9,10 @@ interface ImageGalleryProps {
   aspectRatio?: string;
 }
 
-export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps) {
+export function ImageGallery({
+  images,
+  aspectRatio = '4/3',
+}: ImageGalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const goPrev = useCallback(() => {
@@ -55,8 +58,8 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
         {images.map((src, index) => (
           <Box
             key={src}
-            component="figure"
-            role="button"
+            component='figure'
+            role='button'
             tabIndex={0}
             onClick={() => setLightboxIndex(index)}
             onKeyDown={e => {
@@ -83,10 +86,10 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
             }}
           >
             <Box
-              component="img"
+              component='img'
               src={src}
-              alt=""
-              loading="lazy"
+              alt=''
+              loading='lazy'
               sx={{
                 width: '100%',
                 height: '100%',
@@ -95,7 +98,7 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
               }}
             />
             <Box
-              className="gallery-hover-overlay"
+              className='gallery-hover-overlay'
               sx={theme => ({
                 position: 'absolute',
                 inset: 0,
@@ -111,7 +114,7 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
               })}
             >
               <ZoomInRoundedIcon sx={{ fontSize: 48 }} />
-              <Typography variant="body2" fontWeight={500}>
+              <Typography variant='body2' fontWeight={500}>
                 Click to view
               </Typography>
             </Box>
@@ -121,9 +124,9 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
 
       {lightboxIndex !== null && (
         <Box
-          role="dialog"
-          aria-modal="true"
-          aria-label="Image viewer"
+          role='dialog'
+          aria-modal='true'
+          aria-label='Image viewer'
           onClick={() => setLightboxIndex(null)}
           sx={theme => ({
             position: 'fixed',
@@ -136,9 +139,9 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
           })}
         >
           <Box
-            component="img"
+            component='img'
             src={images[lightboxIndex]}
-            alt=""
+            alt=''
             onClick={e => e.stopPropagation()}
             sx={{
               maxWidth: '90vw',
@@ -157,7 +160,7 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
               color: theme.palette.common.white,
               '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
             })}
-            aria-label="Previous image"
+            aria-label='Previous image'
           >
             <ChevronLeftRoundedIcon sx={{ fontSize: 48 }} />
           </IconButton>
@@ -172,7 +175,7 @@ export function ImageGallery({ images, aspectRatio = '4/3' }: ImageGalleryProps)
               color: theme.palette.common.white,
               '&:hover': { bgcolor: 'rgba(255,255,255,0.1)' },
             })}
-            aria-label="Next image"
+            aria-label='Next image'
           >
             <ChevronRightRoundedIcon sx={{ fontSize: 48 }} />
           </IconButton>

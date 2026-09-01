@@ -11,10 +11,10 @@ export function Designs() {
         py: { xs: 4, md: 6 },
       })}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth='lg'>
         <Typography
-          component="h1"
-          variant="h3"
+          component='h1'
+          variant='h3'
           sx={theme => ({
             fontStyle: 'italic',
             fontWeight: 500,
@@ -29,7 +29,7 @@ export function Designs() {
         >
           Celeste King
         </Typography>
-        <ImageGallery images={illustrationImages} aspectRatio="1" />
+        <ImageGallery images={illustrationImages} aspectRatio='1' />
       </Container>
     </Box>
   );
