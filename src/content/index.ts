@@ -105,6 +105,11 @@ export type SiteContent = {
   };
 };
 
+function publicUrl(path: string): string {
+  const base = import.meta.env.BASE_URL;
+  return `${base}${path.replace(/^\//, '')}`;
+}
+
 function titleFromFile(file: string): string {
   const name = file.replace(/\.[^.]+$/, '');
   return name
@@ -123,11 +128,11 @@ function slugFromFile(file: string): string {
 }
 
 function resolveWork(work: WorkInput, folder: string): Work {
-  const cover = `/${folder}/${work.file}`;
+  const cover = publicUrl(`/${folder}/${work.file}`);
   const extras = (work.images ?? [])
     .map(name => name.trim())
     .filter(Boolean)
-    .map(name => `/${folder}/${name}`)
+    .map(name => publicUrl(`/${folder}/${name}`))
     .filter(src => src !== cover);
 
   return {
@@ -157,7 +162,7 @@ function resolveCollection(input: CollectionInput): Collection {
 function resolveSketchPage(page: SketchPageInput, folder: string): SketchPage {
   return {
     file: page.file,
-    src: `/${folder}/${page.file}`,
+    src: publicUrl(`/${folder}/${page.file}`),
     title: page.title?.trim() || titleFromFile(page.file),
     note: page.note?.trim() || '',
   };
@@ -179,7 +184,9 @@ export const about: AboutContent = {
   eyebrow: aboutJson.eyebrow,
   headline: aboutJson.headline,
   role: aboutJson.role?.trim() || '',
-  portraitSrc: `/${aboutJson.portraitFolder}/${aboutJson.portraitFile}`,
+  portraitSrc: publicUrl(
+    `/${aboutJson.portraitFolder}/${aboutJson.portraitFile}`,
+  ),
   portraitAlt: aboutJson.portraitAlt?.trim() || aboutJson.headline,
   bio: aboutJson.bio ?? [],
   focus: (aboutJson.focus ?? []).map(item => ({
