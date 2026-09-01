@@ -3,9 +3,9 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => ({
-  // GitHub Pages serves the site at /cel/, not the domain root.
-  base: command === 'build' ? '/cel/' : '/',
+export default defineConfig({
+  // Custom domain (celesteking.com) is served from the site root.
+  base: '/',
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
@@ -17,4 +17,4 @@ export default defineConfig(({ command }) => ({
   optimizeDeps: {
     include: ['@emotion/react', '@emotion/styled', '@mui/material/Tooltip'],
   },
-}));
+});
