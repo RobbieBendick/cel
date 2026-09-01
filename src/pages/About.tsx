@@ -1,5 +1,6 @@
 import { Box, Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import { about, site } from '../content';
 import type { AboutFocus } from '../content';
 
@@ -202,19 +203,21 @@ export function About() {
               {site.email}
             </Link>
             {site.instagramUrl && (
-              <Box sx={{ mt: 2 }}>
+              <Box sx={{ mt: 2.5 }}>
                 <Link
                   href={site.instagramUrl}
                   target='_blank'
                   rel='noopener noreferrer'
+                  aria-label='Instagram, opens in a new tab'
                   underline='none'
                   sx={{
-                    fontSize: '0.95rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
                     color: 'text.secondary',
                     '&:hover': { color: 'text.primary' },
                   }}
                 >
-                  Instagram
+                  <InstagramIcon sx={{ fontSize: 22 }} />
                 </Link>
               </Box>
             )}
